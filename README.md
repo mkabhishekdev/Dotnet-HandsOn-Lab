@@ -1,11 +1,12 @@
 RESEARCH PROJECTS:
 ------------------
 
-1. ASP.NET Core Web API .NET8 + MS-SQL in Docker container PROJECT
-2. .NET Microservices
-3. Batch Processing .NET Console application
-4. WPF Migration tool application
-5. .NET Web API microservices with OAuth 
+1. React + .NET Core based project
+2. Design Patterns and SOLID principles in C# conceptual project
+3. .NET Microservices based project
+4. .NET 10 based project
+
+
 
 
 
