@@ -1,0 +1,18 @@
+BEHAVIORAL PATTERNS:
+---------------------
+
+1. Memento pattern
+  - The Memento pattern is a behavioral design pattern that allows an object to capture its internal 
+  state and restore it later without exposing its implementation details. 
+  It is useful for implementing undo/redo functionality in applications.
+  - The Memento pattern is used to restore an object to a previous state.
+
+
+2. State pattern
+  - The State pattern is a behavioral design pattern that allows an object to change its behavior 
+  when its internal state changes. It is useful for implementing finite state machines and 
+  managing complex state transitions in applications.
+  - The State pattern is used to manage the state of an object and change its behavior based on that state.
+  - lot of if/else conditions can be replaced with state pattern. It is used to manage the state of an object and 
+  change its behavior based on that state.
+
