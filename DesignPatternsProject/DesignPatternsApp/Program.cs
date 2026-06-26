@@ -1,7 +1,13 @@
 ﻿
-using DesignPatternsApp.src.OopPrinciples.Coupling;
+using DesignPatternsApp.src.DesignPatterns.Behavioral.StatePattern;
 
-var order = new Order(new EmailSender());
-order.PlaceOrder();
-order = new Order(new SmsSender());
-order.PlaceOrder();
+var doc = new Document();
+doc.State = DocumentStates.Moderation;
+doc.Role = UserRoles.Editor;
+
+Console.WriteLine($"Current State: {doc.State}, Current Role: {doc.Role}");
+
+doc.Publish();
+
+Console.WriteLine($"Current State: {doc.State}, Current Role: {doc.Role}");
+
