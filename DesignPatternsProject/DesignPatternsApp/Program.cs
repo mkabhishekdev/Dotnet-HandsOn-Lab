@@ -1,13 +1,16 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Behavioral.StatePattern;
+using DesignPatternsApp.src.DesignPatterns.Behavioral.IteratorPattern.GoodExample;
 
-var doc = new Document();
-doc.State = DocumentStates.Moderation;
-doc.Role = UserRoles.Editor;
+ShoppingList shoppingList = new ShoppingList();
+shoppingList.AddItem("Milk");
+shoppingList.AddItem("Eggs");
+shoppingList.AddItem("Bread");
 
-Console.WriteLine($"Current State: {doc.State}, Current Role: {doc.Role}");
+var iterator = shoppingList.CreateIterator();
 
-doc.Publish();
-
-Console.WriteLine($"Current State: {doc.State}, Current Role: {doc.Role}");
+while(iterator.HasNext())
+{
+    Console.WriteLine(iterator.Current());
+    iterator.Next();
+}
 
