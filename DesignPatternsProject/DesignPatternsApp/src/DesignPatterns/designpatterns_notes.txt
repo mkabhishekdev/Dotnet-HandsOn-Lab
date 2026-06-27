@@ -16,3 +16,22 @@ BEHAVIORAL PATTERNS:
   - lot of if/else conditions can be replaced with state pattern. It is used to manage the state of an object and 
   change its behavior based on that state.
 
+
+3. Strategy pattern
+  - The Strategy pattern is a behavioral design pattern that allows an object to change its behavior 
+  at runtime by encapsulating different algorithms or strategies and making them interchangeable.
+  - The Strategy pattern is used to define a family of algorithms, encapsulate each one, and make them 
+  interchangeable. It allows the algorithm to vary independently from clients that use it.
+
+
+4. Iterator pattern
+  - The Iterator pattern provides a way of iterating over an object without having to expose the object's internal
+  structure, which may change in the future. Changing the internals of an object should not affect its 
+  consumers.
+
+5. Command pattern
+  - The Command pattern is a behavioral design pattern that encapsulates a request as an object, 
+  allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations.
+  - The Command pattern is used to encapsulate a request as an object, allowing you to parameterize clients with 
+  different requests, queue or log requests, and support undoable operations.
+
