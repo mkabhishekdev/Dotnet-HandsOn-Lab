@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatternsApp.src.DesignPatterns.Behavioral.CommandPattern.GoodExample
 {
+    // RECEIVER
     public class Light
     {
         public void TurnOn()

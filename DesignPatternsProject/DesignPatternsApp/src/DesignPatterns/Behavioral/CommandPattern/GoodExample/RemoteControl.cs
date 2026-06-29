@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace DesignPatternsApp.src.DesignPatterns.Behavioral.CommandPattern.GoodExample
 {
+
+    //INVOKER
     public class RemoteControl
     {
         private ICommand _command;  
