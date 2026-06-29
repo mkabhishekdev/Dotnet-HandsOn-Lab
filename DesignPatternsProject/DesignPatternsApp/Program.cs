@@ -1,16 +1,8 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Behavioral.IteratorPattern.GoodExample;
+using DesignPatternsApp.src.DesignPatterns.Behavioral.TemplatePattern.GoodExample;
 
-ShoppingList shoppingList = new ShoppingList();
-shoppingList.AddItem("Milk");
-shoppingList.AddItem("Eggs");
-shoppingList.AddItem("Bread");
+var beverageMaker = new BeverageMaker(new Tea());
+beverageMaker.MakeBeverage();
 
-var iterator = shoppingList.CreateIterator();
-
-while(iterator.HasNext())
-{
-    Console.WriteLine(iterator.Current());
-    iterator.Next();
-}
-
+beverageMaker.SetBeverage(new Chamomile());
+beverageMaker.MakeBeverage();

@@ -34,4 +34,6 @@ BEHAVIORAL PATTERNS:
   allowing you to parameterize clients with different requests, queue or log requests, and support undoable operations.
   - The Command pattern is used to encapsulate a request as an object, allowing you to parameterize clients with 
   different requests, queue or log requests, and support undoable operations.
+  - Command pattern breaks the app into layers, following good software design principle called "principle of 
+    separation of concerns". 
 
