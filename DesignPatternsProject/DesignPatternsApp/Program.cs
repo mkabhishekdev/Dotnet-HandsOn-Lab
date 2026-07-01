@@ -1,8 +1,5 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Behavioral.TemplatePattern.GoodExample;
+using DesignPatternsApp.src.DesignPatterns.Behavioral.MediatorPattern;
 
-var beverageMaker = new BeverageMaker(new Tea());
-beverageMaker.MakeBeverage();
-
-beverageMaker.SetBeverage(new Chamomile());
-beverageMaker.MakeBeverage();
+var postDialogBox = new PostDialogBox();
+postDialogBox.SimulateUserInteraction();
