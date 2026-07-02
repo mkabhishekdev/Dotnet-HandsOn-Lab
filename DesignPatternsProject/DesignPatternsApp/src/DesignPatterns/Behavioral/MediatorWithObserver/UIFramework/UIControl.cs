@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatternsApp.src.DesignPatterns.Behavioral.MediatorWithFramework.UIFramework
 {
-    public class UIControl
+    public class UIControls
     {
         private List<EventHandler> _eventHandlers = new List<EventHandler>();
 
@@ -13,5 +13,13 @@ namespace DesignPatternsApp.src.DesignPatterns.Behavioral.MediatorWithFramework.
         {
             _eventHandlers.Add(handler);
         }   
+
+        public void NotifyEventHandlers()
+        {
+            foreach (var handler in _eventHandlers)
+            {
+                handler.Invoke();
+            }
+        }
     }
 }
