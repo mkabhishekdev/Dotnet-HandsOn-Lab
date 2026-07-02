@@ -1,5 +1,6 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Behavioral.MediatorPattern;
+using DesignPatternsApp.src.DesignPatterns.Behavioral.ChainOfResponsibilityPattern;
 
-var postDialogBox = new PostDialogBox();
-postDialogBox.SimulateUserInteraction();
+WebServer webServer = new WebServer();
+HttpRequest request = new HttpRequest("admin", "password");
+webServer.HandleRequest(request);
