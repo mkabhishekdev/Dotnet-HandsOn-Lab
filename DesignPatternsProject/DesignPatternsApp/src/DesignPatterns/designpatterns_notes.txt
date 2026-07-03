@@ -364,3 +364,135 @@ ASP.NET Core Middleware (each middleware handles or passes the request to the ne
 Exception handling chains
 
 ------------------------------------------------------------------------------------------------------------
+10. Visitor Pattern
+
+The Visitor Pattern lets you add a new operation to a group of existing classes without modifying those classes.
+
+One-line memory trick:
+"Keep the objects the same, bring in different visitors to perform different tasks."
+
+🏛️ Analogy: Museum Visitors
+
+Imagine a museum.
+
+The museum has exhibits:
+Dinosaur
+Painting
+Sculpture
+
+These exhibits don't change.
+
+Now different visitors come:
+
+👨‍🏫 Guide → Explains history
+🧹 Cleaner → Cleans the exhibit
+📸 Photographer → Takes pictures
+📝 Inspector → Checks for damage
+
+The same exhibit receives different visitors, each performing a different operation.
+
+The exhibit itself doesn't need to know how to clean or inspect—it simply accepts the visitor.
+
+In Code
+
+Instead of writing:
+
+dinosaur.Clean();
+dinosaur.Inspect();
+dinosaur.TakePhoto();
+
+You write:
+
+dinosaur.Accept(cleanerVisitor);
+dinosaur.Accept(inspectorVisitor);
+dinosaur.Accept(photoVisitor);
+
+Each visitor performs its own logic.
+
+Why use Visitor?
+
+Suppose you already have many classes:
+
+Circle
+Rectangle
+Triangle
+
+Now your manager says:
+
+"Add exporting to PDF."
+
+Instead of modifying all three classes, create:
+
+PdfExportVisitor
+
+Tomorrow:
+
+ExcelExportVisitor
+
+Next month:
+
+AreaCalculationVisitor
+
+The existing shape classes remain unchanged.
+
+Visitor Pattern allows adding new operations to existing object structures without modifying the object classes by placing the operation inside separate Visitor classes. 
+
+------------------------------------------------------------------------
+11. Interpreter Pattern
+
+The Interpreter Pattern is used to understand and evaluate a language or expression based on a set of grammar rules.
+
+One-line memory trick:
+"Given a language, build an interpreter that understands it."
+
+🗣️ Analogy: Language Translator
+
+Imagine you travel to Japan.
+
+You say:
+
+"Hello"
+
+A translator interprets it as:
+
+"こんにちは"
+
+Similarly, if you type:
+
+2 + 3 * 4
+
+An interpreter understands the symbols (2, +, 3, *, 4) according to mathematical grammar and evaluates the result:
+
+14
+
+The interpreter reads, understands, and executes the expression.
+
+Another Programming Analogy
+
+Suppose your application accepts commands like:
+
+MOVE FORWARD
+TURN LEFT
+MOVE FORWARD
+
+Instead of writing lots of if-else statements, you create an interpreter that understands these commands and executes them one by one.
+
+In Code
+
+Input:
+
+ADD 10 20
+
+Interpreter:
+
+Reads ADD
+Understands it means addition
+Computes:
+30
+Where is it used?
+SQL query parsers
+Regular expression engines
+Mathematical expression evaluators
+Programming language compilers/interpreters
+Rule engines
+Command/script processors
