@@ -20,6 +20,104 @@ Before their book, developers often solved common design problems repeatedly in 
 
 The GoF documented 23 proven design patterns that could be reused across object-oriented software.
 
+The 3 main categories of design patterns are:
+----------------------------------------------
+
+Creating objects → Connecting objects → Communicating between objects
+
+Category	       Fundamental Question	                            Simple Meaning
+Creational	      How do I create objects?	                        Object creation
+Structural	    How do I connect/organize objects?	                Object structure
+Behavioral	   How do objects communicate and work together?	    Object interaction
+
+🏗️ 1. Creational Patterns = CREATE
+
+Problem:
+
+How should I create this object?
+
+Instead of blindly doing:
+
+var obj = new SomeClass();
+
+Creational patterns provide better ways of controlling object creation.
+
+Examples: Factory, Abstract Factory, Builder, Singleton, Prototype.
+
+Memory word: CREATE
+
+🧱 2. Structural Patterns = CONNECT
+
+Now the objects already exist.
+
+The question becomes:
+
+How should I connect and organize these classes and objects?
+
+Example:
+
+Object A
+   |
+   ↓
+Object B
+   |
+   ↓
+Object C
+
+Structural patterns help arrange them into a larger system.
+
+Examples: Adapter, Decorator, Facade, Composite, Proxy, Bridge, Flyweight.
+
+Memory word: CONNECT
+
+🤝 3. Behavioral Patterns = COMMUNICATE
+
+Now:
+
+Objects are created.
+Objects are connected.
+
+The final question is:
+
+How should these objects communicate and divide responsibilities?
+
+Example:
+
+Object A
+   |
+ sends request
+   ↓
+Object B
+   |
+ notifies
+   ↓
+Object C
+
+Examples: Observer, Strategy, Command, State, Mediator, Chain of Responsibility, Visitor, Iterator, Template Method, Memento, Interpreter.
+
+Memory word: COMMUNICATE
+
+So remember the entire Gang of Four classification as the natural life cycle of objects:
+
+CREATE
+   ↓
+CONNECT
+   ↓
+COMMUNICATE
+
+Creational
+   ↓
+Structural
+   ↓
+Behavioral
+
+My simplest one-line definition would be:
+
+Creational patterns deal with how objects are created, Structural patterns deal with how objects are connected, and Behavioral patterns deal with how objects communicate and share responsibilities.
+
+For your design-pattern notes, I would remember just CREATE → CONNECT → COMMUNICATE.
+
+
 Examples include:
 
 Creational Patterns
@@ -74,8 +172,8 @@ Key Idea (One-line Memory Aid)
 "The Gang of Four are the four authors who documented the 23 classic object-oriented design patterns that are still widely used today."
 
 
-BEHAVIORAL PATTERNS:
----------------------
+BEHAVIORAL PATTERNS:(COMMUNICATION)
+-------------------------------------
 
 1. Memento pattern
 
@@ -496,3 +594,84 @@ Mathematical expression evaluators
 Programming language compilers/interpreters
 Rule engines
 Command/script processors
+
+
+STRUCTURAL PATTERNS:(CONNECTION)
+-------------------------------------   
+
+1. Composite pattern
+Composite Pattern allows you to treat a single object and a group of objects in the same way.
+
+Analogy: Company Organization
+
+Think of a company:
+
+Company
+│
+├── Manager
+│   ├── Employee
+│   └── Employee
+│
+└── Manager
+    ├── Employee
+    └── Employee
+
+Both an individual Employee and a Manager with multiple employees can be treated similarly.
+
+For example:
+
+GetSalary()
+For an Employee → returns their salary.
+For a Manager/Department → calculates the salaries of everyone under it.
+
+The client doesn't need to worry whether it's dealing with one object or a group of objects.
+
+Simple C# idea
+public interface IEmployee
+{
+    void ShowDetails();
+}
+
+Individual object (Leaf):
+------------------------------
+public class Developer : IEmployee
+{
+    public void ShowDetails()
+    {
+        Console.WriteLine("Developer");
+    }
+}
+
+Group of objects (Composite):
+-------------------------------
+public class Manager : IEmployee
+{
+    private List<IEmployee> employees = new();
+
+    public void Add(IEmployee employee)
+    {
+        employees.Add(employee);
+    }
+
+    public void ShowDetails()
+    {
+        foreach(var employee in employees)
+        {
+            employee.ShowDetails();
+        }
+    }
+}
+
+The key idea is:
+
+Developer ───────┐
+                 ├── Both implement IEmployee
+Manager ─────────┘
+   │
+   ├── Developer
+   └── Developer
+
+So the easiest way to remember it is:
+
+Composite Pattern = Treat one object and a collection/tree of objects uniformly.
+
