@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DesignPatternsApp.src.DesignPatterns.Structural.BridgePattern.Bad
+{
+    public class LGRemote : RemoteControl
+    {
+        public override void TurnOff()
+        {
+            Console.WriteLine("LG TV is turned off.");
+        }
+
+        public override void TurnOn()
+        {
+            Console.WriteLine("LG TV is turned on.");
+        }
+
+        public override void VolumeDown()
+        {
+            Console.WriteLine("LG TV volume is decreased.");
+        }
+
+        public override void VolumeUp()
+        {
+            Console.WriteLine("LG TV volume is increased.");
+        }
+    }
+}
