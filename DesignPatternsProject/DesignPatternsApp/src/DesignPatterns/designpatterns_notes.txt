@@ -675,3 +675,25 @@ So the easiest way to remember it is:
 
 Composite Pattern = Treat one object and a collection/tree of objects uniformly.
 
+
+2. Adapter Pattern
+
+The Adapter Pattern allows two incompatible classes or interfaces to work together by acting as a bridge between them.
+
+One-line memory trick:
+"Make incompatible things compatible."
+
+🔌 Analogy: Power Plug Adapter
+
+Imagine you travel from India to the US.
+
+Your Indian charger has one type of plug.
+The US wall socket has a different shape.
+
+You use a travel adapter.
+
+The adapter doesn't change the charger or the wall socket—it simply lets them work together.
+
+Indian Charger → Adapter → US Socket
+
+The adapter acts as a translator between two incompatible interfaces.
