@@ -599,7 +599,7 @@ Command/script processors
 STRUCTURAL PATTERNS:(CONNECTION)
 -------------------------------------   
 
-1. Composite pattern
+1. COMPOSITE PATTERN
 Composite Pattern allows you to treat a single object and a group of objects in the same way.
 
 Analogy: Company Organization
@@ -676,7 +676,7 @@ So the easiest way to remember it is:
 Composite Pattern = Treat one object and a collection/tree of objects uniformly.
 
 
-2. Adapter Pattern
+2. ADAPTER PATTERN
 
 The Adapter Pattern allows two incompatible classes or interfaces to work together by acting as a bridge between them.
 
@@ -697,3 +697,150 @@ The adapter doesn't change the charger or the wall socket—it simply lets them 
 Indian Charger → Adapter → US Socket
 
 The adapter acts as a translator between two incompatible interfaces.
+
+
+3. BRIDGE PATTERN
+
+The Bridge Pattern separates an abstraction from its implementation so that both can evolve independently.
+
+One-line memory trick:
+"Separate what it does from how it does it."
+
+📺 Analogy: TV and Remote Control
+
+Imagine you have:
+
+Samsung TV
+Sony TV
+LG TV
+
+And different remotes:
+
+Basic Remote
+Smart Remote
+Voice Remote
+
+Without the Bridge Pattern, you'd need classes like:
+
+SamsungBasicRemote
+SamsungSmartRemote
+SamsungVoiceRemote
+SonyBasicRemote
+SonySmartRemote
+SonyVoiceRemote
+...
+
+The number of classes keeps growing.
+
+With the Bridge Pattern:
+
+Remote  ─────────►  TV
+                 (interface)
+The Remote knows how to operate a TV.
+The TV knows how to turn on, change channels, adjust volume.
+
+Now you can mix and match:
+
+Basic Remote + Samsung TV
+Smart Remote + Sony TV
+Voice Remote + LG TV
+
+without creating new classes for every combination.
+
+
+4. PROXY PATTERN
+
+The Proxy Pattern provides a substitute or middleman object that controls access to the real object.
+
+One-line memory trick:
+“Instead of accessing the real object directly, go through a proxy.”
+
+🚪 Analogy: Security Guard
+
+Imagine a company CEO’s office.
+
+Visitor → Security Guard → CEO
+
+You cannot directly enter the CEO’s office. The security guard (proxy) first checks:
+
+Who are you?
+Do you have permission?
+Should you be allowed inside?
+
+If everything is valid, the guard allows you to meet the CEO.
+
+Similarly, in programming:
+
+Client → Proxy → Real Object
+
+The Proxy can perform authentication, logging, caching, lazy loading, etc., before accessing the real object.
+
+Programming Example
+
+Suppose you have:
+
+Client → BankAccountProxy → RealBankAccount
+
+When you call:
+
+account.Withdraw(5000);
+
+The Proxy may:
+
+1. Check user permission
+2. Log the transaction
+3. Call the real BankAccount
+
+An API Gateway can act as a Proxy in many scenarios.
+
+Simple Example
+Client → API Gateway → Microservice
+
+Instead of the client directly accessing the microservice:
+
+Client → Order Service
+
+the client accesses it through the API Gateway:
+
+Client → API Gateway (Proxy) → Order Service
+
+The API Gateway can perform:
+
+Authentication
+Authorization
+Rate limiting
+Logging
+Caching
+Routing
+
+and then forward the request to the actual microservice.
+
+Analogy
+
+Think of a hotel receptionist:
+
+Guest → Receptionist → Hotel Service
+
+You don't directly go into the hotel's internal departments. The receptionist receives your request and directs it to the appropriate service.
+
+Similarly:
+
+Client
+   ↓
+API Gateway  ← Proxy
+   ↓
+Microservice
+Important distinction
+
+An API Gateway can behave like a Proxy, but an API Gateway is usually more than just a Proxy.
+
+Proxy
+   ↓
+Main purpose: Control/intermediate access
+
+API Gateway
+   ↓
+Proxy + Routing + Authentication + Rate Limiting + Aggregation + etc.
+Easy way to remember
+
+An API Gateway is like an advanced Proxy specifically designed to manage access to backend APIs and microservices.
