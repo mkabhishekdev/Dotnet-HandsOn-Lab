@@ -1,7 +1,12 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Structural.Adapter;
-using DesignPatternsApp.src.DesignPatterns.Structural.Adapter.Package;
+using DesignPatternsApp.src.DesignPatterns.Structural.BridgePattern.Good;
+using RemoteControl = DesignPatternsApp.src.DesignPatterns.Structural.BridgePattern.Good.RemoteControl;
 
-var videoEditor = new VideoEditor(new Video());
-videoEditor.ApplyColor(new RainbowColor(new Rainbow()));
+var lgRemoteControl = new RemoteControl(new LGRadio());
+lgRemoteControl.TurnOn();
+lgRemoteControl.TurnOff();
+
+var advancedSonyRemoteControl = new AdvancedRemote(new SonyRadio());
+advancedSonyRemoteControl.TurnOn();
+advancedSonyRemoteControl.TurnOff();
 
