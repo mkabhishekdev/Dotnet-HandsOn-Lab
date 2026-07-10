@@ -9,21 +9,20 @@ namespace DesignPatternsApp.src.DesignPatterns.Structural.FlyweightPattern
     {
         private int _x;
         private int _y;
-        private CropType _cropType;
         
-        private byte[] _icon;
+        private CropIcon _cropIcon;
 
-        public Crop(int x, int y, CropType cropType, byte[] icon)
+        public Crop(int x, int y, CropIcon cropIcon)
         {
             _x = x;
             _y = y;
-            _cropType = cropType;
-            _icon = icon;
+            _cropIcon = cropIcon;
         }
+       
         
         public void Render()
         {
-            Console.WriteLine($"Rendering {_cropType} at ({_x}, {_y})");
+            Console.WriteLine($"Rendering {_cropIcon.GetType()} at ({_x}, {_y})");
         }
     }
 }
