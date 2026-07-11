@@ -1003,3 +1003,42 @@ For your notes:
 
 Facade Pattern: Provides a simplified interface to a complex subsystem. Analogy: A hotel reception desk acts as 
 one point of contact instead of making guests interact with every hotel department individually.
+
+
+7. DECORATOR PATTERN
+-----------------------------
+
+Decorator Pattern means adding new features or responsibilities to an object dynamically without changing its original class.
+
+☕ Analogy: Coffee Shop
+
+You start with a basic coffee.
+
+Then you can decorate it with:
+
+Coffee + Milk
+Coffee + Sugar
+Coffee + Whipped Cream
+
+Each addition adds extra behavior/cost, but the original Coffee class remains unchanged.
+
+In Programming
+Basic Coffee
+     ↓
+Milk Decorator
+     ↓
+Sugar Decorator
+     ↓
+Whipped Cream Decorator
+
+Each decorator wraps the previous object and adds something extra.
+
+Simple Definition to Remember
+
+Decorator Pattern = Wrap an object to add extra functionality without modifying its original class.
+
+Key idea: Wrapping instead of inheritance.
+
+
+CREATIONAL PATTERNS:(CREATION)
+-------------------------------------   

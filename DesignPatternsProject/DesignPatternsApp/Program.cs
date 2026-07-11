@@ -1,12 +1,22 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Structural.BridgePattern.Good;
-using RemoteControl = DesignPatternsApp.src.DesignPatterns.Structural.BridgePattern.Good.RemoteControl;
+using DesignPatternsApp.src.DesignPatterns.Structural.DecoratorPattern.Good;
 
-var lgRemoteControl = new RemoteControl(new LGRadio());
-lgRemoteControl.TurnOn();
-lgRemoteControl.TurnOff();
+var url = "https://cloudstorage.com/data";
+var data = "This is some important data that needs to be saved securely.";
+var compress = true;
+var encrypt = true;
 
-var advancedSonyRemoteControl = new AdvancedRemote(new SonyRadio());
-advancedSonyRemoteControl.TurnOn();
-advancedSonyRemoteControl.TurnOff();
+ IData cloudData = new CloudData(url);
+
+ if(encrypt)
+ {
+     cloudData = new EncryptionDecorator(cloudData);
+ }
+ if(compress)
+ {
+     cloudData = new CompressionDecorator(cloudData);
+ }
+ 
+ cloudData.Save(data);  
+
 
