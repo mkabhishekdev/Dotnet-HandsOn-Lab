@@ -1,22 +1,14 @@
 ﻿
-using DesignPatternsApp.src.DesignPatterns.Structural.DecoratorPattern.Good;
+using DesignPatternsApp.src.DesignPatterns.Creational.SingletonPattern;
 
-var url = "https://cloudstorage.com/data";
-var data = "This is some important data that needs to be saved securely.";
-var compress = true;
-var encrypt = true;
+var settings = AppSettings.GetInstance();
 
- IData cloudData = new CloudData(url);
+settings.SetSetting("app_name", "Design Patterns App");
+settings.SetSetting("app_creator", "mkabhishek");
 
- if(encrypt)
- {
-     cloudData = new EncryptionDecorator(cloudData);
- }
- if(compress)
- {
-     cloudData = new CompressionDecorator(cloudData);
- }
+Console.WriteLine("App creator is: "+settings.GetSetting("app_creator"));
+
+Test.Run();
+
+
  
- cloudData.Save(data);  
-
-
