@@ -1042,3 +1042,129 @@ Key idea: Wrapping instead of inheritance.
 
 CREATIONAL PATTERNS:(CREATION)
 -------------------------------------   
+ 
+1. PROTOTYPE PATTERN
+----------------------- 
+
+The Prototype Pattern creates new objects by copying (cloning) an existing object instead of creating them from scratch.
+
+Analogy:
+Think of a photocopy machine 📄.
+
+You already have one completed document. Instead of writing the same document again from scratch, you simply make a copy and modify it if needed.
+
+In programming:
+
+Existing Object → Clone → New Object
+
+Key idea:
+
+Prototype Pattern = Create new objects by cloning existing objects.
+
+
+2. SINGLETON PATTERN
+-----------------------
+
+The Singleton Pattern ensures that a class has only one object (instance) throughout the application and provides a common way to access it.
+
+Analogy:
+Think of the President of a country.
+
+At a given time, there is only one President, and everyone who needs to communicate with the President refers to that same person.
+
+In programming:
+
+Application → One Shared Instance
+
+Key idea:
+
+Singleton Pattern = Create only one instance of a class and share it everywhere.
+
+Singleton Pattern – Database Configuration Example
+
+Suppose your application reads the database connection settings from appsettings.json.
+
+You don't need to create and load a new configuration object every time a service needs the database settings. Instead, the application can create one configuration instance and share it throughout the application.
+
+appsettings.json → One Configuration Instance → Used by Multiple Services
+
+Analogy: Think of an office notice board. There is only one central notice board, and all employees refer to the same board for information.
+
+Singleton = One shared instance used throughout the application.
+
+Note: In ASP.NET Core, configuration is effectively shared application-wide, but DbContext itself is normally Scoped, not Singleton.
+
+DbContext is the bridge between your C# application and the database in Entity Framework Core.
+
+Analogy:
+Think of DbContext as a waiter in a restaurant:
+
+Your Application → DbContext (Waiter) → Database (Kitchen)
+
+Your application tells DbContext:
+
+Get me all customers.
+Add this new employee.
+Update this product.
+Delete this order.
+
+DbContext communicates with the database and performs these operations.
+
+Example
+public class AppDbContext : DbContext
+{
+    public DbSet<Customer> Customers { get; set; }
+}
+
+Then you can write:
+
+var customers = context.Customers.ToList();
+
+Here:
+
+context → DbContext object
+Customers → Database table
+ToList() → Fetch records from the database
+
+Key idea:
+
+DbContext = A bridge/session between your C# application and the database.
+
+And connecting it to your previous question: DbContext is usually Scoped, meaning one DbContext instance is created for one HTTP request.
+
+Singleton → IConfiguration / App settings: One shared instance used throughout the application's lifetime.
+Scoped → DbContext: One instance created per HTTP request.
+Transient → Email service / lightweight helper service: A new instance is created every time it is requested.
+Example flow
+ASP.NET Core Application
+
+Singleton  → App Configuration → One for entire application
+
+Scoped     → DbContext         → One per HTTP request
+
+Transient  → EmailService      → New instance every time requested
+
+
+3. FACTORY PATTERN
+-----------------------
+
+The Factory Method Pattern creates objects without the client directly deciding which specific class to instantiate.
+
+Analogy:
+Think of a restaurant kitchen 🍕
+
+You order a food item:
+
+Order Pizza → Kitchen creates Pizza
+
+Order Burger → Kitchen creates Burger
+
+You don't go into the kitchen and create the food yourself. You simply specify what you want, and the kitchen decides how to create the appropriate object.
+
+In programming:
+
+Client → Factory Method → Creates Required Object
+
+Key idea:
+
+Factory Method = Delegate object creation to a method instead of creating objects directly with new.
