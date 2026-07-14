@@ -1168,3 +1168,60 @@ Client → Factory Method → Creates Required Object
 Key idea:
 
 Factory Method = Delegate object creation to a method instead of creating objects directly with new.
+
+
+4. ABSTRACT FACTORY PATTERN
+-----------------------------
+
+The Abstract Factory Pattern creates families of related objects without the client directly creating the specific 
+objects.
+
+Analogy:
+Think of a furniture factory 🪑
+
+You can choose:
+
+Modern Furniture Factory → Creates Modern Chair + Modern Table
+Victorian Furniture Factory → Creates Victorian Chair + Victorian Table
+
+The objects created belong to the same family/style.
+
+Modern Factory
+   → Modern Chair
+   → Modern Table
+
+Victorian Factory
+   → Victorian Chair
+   → Victorian Table
+
+Key idea:
+
+Abstract Factory = Create families of related objects without directly using new.
+
+Difference from Factory Method:
+
+Factory Method → Creates one type of object
+Abstract Factory → Creates a family of related objects
+
+
+5. BUILDER PATTERN
+-----------------------
+The Builder Pattern creates a complex object step by step instead of creating everything at once.
+
+Analogy:
+Think of building a custom burger 🍔.
+
+You create it step by step:
+
+Add Bun → Add Patty → Add Cheese → Add Sauce → Final Burger
+
+You can use the same building process to create different burgers by choosing different ingredients.
+
+In programming:
+
+Builder → Step 1 → Step 2 → Step 3 → Final Object
+
+Key idea:
+
+Builder Pattern = Construct a complex object step by step.
+

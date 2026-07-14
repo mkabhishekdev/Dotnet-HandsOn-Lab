@@ -9,9 +9,14 @@ namespace DesignPatternsApp.src.DesignPatterns.Creational.FactoryMethod.MVCFrame
     {
         public void Render(string fileName, Dictionary<string, object> data)
         {
-            var ViewEngine = new BladeViewEngine();
-            var html = ViewEngine.Render(fileName, data);
+            var viewEngine = createViewEngine();
+            var html = viewEngine.Render(fileName, data);
             Console.WriteLine(html);
+        }
+
+        protected virtual ViewEngine createViewEngine()
+        {
+            return new BladeViewEngine();
         }
     }
 }

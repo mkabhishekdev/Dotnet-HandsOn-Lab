@@ -9,7 +9,9 @@ namespace DesignPatternsApp.src.DesignPatterns.Creational.FactoryMethod.MVCFrame
     {
         public string Render(string fileName, Dictionary<string, object> data)
         {
-            return "view rendered from " + fileName + "by blade";
+            Console.WriteLine("Rendering view using BladeViewEngine");
+            return "view rendered from " + fileName + " by blade" + "\n" +
+            data.ToList().Aggregate("", (acc, kv) => acc + $"{kv.Key}: {kv.Value}\n");
         }
     }
 }
