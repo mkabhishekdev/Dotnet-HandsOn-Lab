@@ -1210,8 +1210,8 @@ Think of a furniture factory 🪑
 
 You can choose:
 
-Modern Furniture Factory → Creates Modern Chair + Modern Table
-Victorian Furniture Factory → Creates Victorian Chair + Victorian Table
+Modern Furniture Factory style → Creates Modern Chair + Modern Table
+Old Furniture Factory style → Creates Old Chair + Old Table
 
 The objects created belong to the same family/style.
 
@@ -1220,12 +1220,12 @@ Modern Factory
    → Modern Table
 
 Victorian Factory
-   → Victorian Chair
-   → Victorian Table
+   → OldStyle Chair
+   → OldStyle Table
 
 Key idea:
 
-Abstract Factory = Create families of related objects without directly using new.
+Abstract Factory = Create styles/families of related objects without directly using new.
 
 Difference from Factory Method:
 
