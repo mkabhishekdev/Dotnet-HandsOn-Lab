@@ -55,7 +55,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 
 /* Here is where you are adding the created db connection, Program.cs is like back of a TV, without plugging in the 
-wire connections behind the TV, you can expect the TV to operate. In the same way, without adding the services in the 
+wire connections behind the TV, you can't expect the TV to operate. In the same way, without adding the services in the 
 Program.cs file you cannot expect the application project to work  */
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
