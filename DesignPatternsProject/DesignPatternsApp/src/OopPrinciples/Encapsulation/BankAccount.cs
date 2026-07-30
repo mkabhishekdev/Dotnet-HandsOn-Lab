@@ -7,7 +7,7 @@ namespace DesignPatternsApp.src.OopPrinciples.Encapsulation
 {
     public class BankAccount
     {
-        private decimal balance;
+        private decimal balance; // hidden data, encapsulation
 
         public BankAccount(decimal balance)
         {
