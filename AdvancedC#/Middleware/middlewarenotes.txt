@@ -1,0 +1,630 @@
+1. Creating a custom middleware
+*************************************************************************************************************
+
+public class LoggingMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public LoggingMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task Invoke(HttpContext context)
+    {
+        Console.WriteLine("Request Started");
+
+        await _next(context);
+
+        Console.WriteLine("Request Finished");
+    }
+}
+
+Register it:
+-------------------
+app.UseMiddleware<LoggingMiddleware>();
+This behaves exactly like the inline app.Use(...) example, but keeps your Program.cs clean.
+
+One-line summary
+-----------------------
+Middleware is a chain of request-processing components. Each middleware gets a chance to inspect or modify the request,
+decide whether to continue by calling next(), and optionally inspect or modify the response on its way back.
+
+A mental model you can keep
+---------------------------------
+Think of a restaurant order:
+
+Customer
+   ↓
+Host
+   ↓
+Waiter
+   ↓
+Kitchen
+   ↓
+Chef
+Host (Middleware 1): "Welcome! Do you have a reservation?" (logging/checks)
+Waiter (Middleware 2): "Here's the menu." (authentication/authorization)
+Kitchen (Middleware 3): "Prepare the food." (routing to your endpoint)
+Chef (Controller/Endpoint): Actually cooks the meal and returns it.
+
+The meal then travels back through the same chain:
+
+Chef
+↑
+Kitchen
+↑
+Waiter
+↑
+Host
+↑
+Customer
+
+Each person can still add something before it reaches the customer—for example, the waiter can garnish the plate or the host can thank the customer. 
+That's exactly how the response flows back through the middleware pipeline.
+
+
+2. Clear Conceptual Understanding
+*************************************************************************************************************
+
+Step 1: Imagine only ONE middleware exists
+----------------------------------------------
+
+Suppose your application only has this middleware.
+
+Browser
+
+↓
+
+LoggingMiddleware
+
+↓
+
+Endpoint (/hello)
+
+↓
+
+Browser
+
+When you visit
+
+http://localhost:5000/hello
+
+ASP.NET Core says
+
+"LoggingMiddleware, here's the request. Do something."
+
+
+Step 2: The Middleware Class
+-----------------------------------------------
+
+public class LoggingMiddleware
+{
+
+This is just a normal C# class.
+
+Nothing special.
+
+Just like
+
+public class Student
+{
+}
+
+or
+
+public class Employee
+{
+}
+
+ASP.NET simply knows
+
+"Oh...this class is a middleware."
+
+because of its constructor and Invoke() method.
+
+
+Step 3: The RequestDelegate
+--------------------------------------------------------------
+
+Delegate in general meaning(non-technical):
+To delegate means to assign tasks, responsibilities, or authority to another person. As a noun, it refers to a person 
+chosen to represent, vote, or act on behalf of others.
+
+This is usually the most confusing part.
+
+private readonly RequestDelegate _next;
+
+Think of it as
+
+a reference to the next middleware in the pipeline.
+
+Suppose the pipeline is
+
+Logging
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Controller
+
+Then inside Logging,
+
+_next
+
+points to Authentication.
+
+If Logging calls
+
+await _next(context);
+
+it is literally saying
+
+Authentication, now it's your turn.
+
+Restaurant analogy
+
+Imagine four employees.
+
+Receptionist
+
+↓
+
+Waiter
+
+↓
+
+Chef
+
+↓
+
+Cashier
+
+The receptionist has the phone number of the waiter.
+
+Receptionist
+
+next ---> Waiter
+
+The waiter has the phone number of the chef.
+
+Waiter
+
+next ---> Chef
+
+The chef has the phone number of the cashier.
+
+Chef
+
+next ---> Cashier
+
+Each person simply forwards the customer to the next person.
+
+That's exactly what RequestDelegate is.
+
+
+Step 4: Constructor
+------------------------------------------------------
+
+public LoggingMiddleware(RequestDelegate next)
+{
+    _next = next;
+}
+
+ASP.NET creates this middleware for you.
+
+Imagine it internally doing something like
+
+var middleware =
+    new LoggingMiddleware(authenticationMiddleware);
+
+where
+
+authenticationMiddleware
+
+is actually represented by a RequestDelegate.
+
+You never create this object yourself.
+
+ASP.NET builds the entire pipeline.
+
+
+Step 5: Invoke()
+------------------------------------------------------------
+
+This is the heart of middleware.
+
+public async Task Invoke(HttpContext context)
+
+Whenever a request arrives
+
+GET /hello
+
+ASP.NET calls
+
+Invoke(context);
+
+Think
+
+Browser
+
+↓
+
+Invoke(context)
+
+Every request gets its own HttpContext. (REMEMEBER: thats the reason for the 'scoped' lifetime of the request)
+
+What is HttpContext?
+
+Think of it as a huge bag containing everything about the current request.
+
+HttpContext
+
+├── Request
+
+├── Response
+
+├── User
+
+├── Headers
+
+├── Cookies
+
+├── Session
+
+└── Items
+
+For example
+
+Request URL
+
+Request Method
+
+Response Status
+
+Logged-in User
+
+Cookies
+
+Headers
+
+Everything lives here.
+
+You can do
+
+Console.WriteLine(context.Request.Path);
+
+Output
+
+/hello
+
+or
+
+Console.WriteLine(context.Request.Method);
+
+Output
+
+GET
+Before _next()
+Console.WriteLine("Request Started");
+
+Runs immediately.
+
+Browser
+
+↓
+
+Logging Middleware
+
+Print
+
+Request Started
+
+Nothing else has happened yet.
+
+Calling _next()
+
+This is the important line.
+
+await _next(context);
+
+This means
+
+Continue processing the request.
+
+Imagine you're handing a file to your colleague.
+
+Logging
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Controller
+
+Logging says
+
+I'm done.
+
+Authentication, please continue.
+
+If you remove this line
+
+await _next(context);
+
+The pipeline stops.
+
+Logging
+
+X
+
+Controller never executes
+
+Browser waits.
+
+No response.
+
+Unless you generate one yourself.
+
+Example
+
+public async Task Invoke(HttpContext context)
+{
+    await context.Response.WriteAsync("Blocked");
+}
+
+Browser receives
+
+Blocked
+
+Controller is never reached.
+
+After _next()
+
+This is the coolest part.
+
+await _next(context);
+
+Console.WriteLine("Request Finished");
+
+Notice
+
+The controller has already finished.
+
+Now the response is coming back.
+
+Think
+
+Browser
+
+↓
+
+Logging
+
+↓
+
+Controller
+
+↑
+
+Logging again
+
+↑
+
+Browser
+
+Middleware gets two chances:
+
+Before
+
+Request Started
+
+After
+
+Request Finished
+
+This is why middleware can modify both requests and responses.
+
+Complete Flow
+
+Suppose
+
+app.UseMiddleware<LoggingMiddleware>();
+
+app.MapGet("/hello", () =>
+{
+    Console.WriteLine("Inside Endpoint");
+
+    return "Hello";
+});
+
+User requests
+
+GET /hello
+
+Execution becomes
+
+Logging Middleware
+
+↓
+
+Console.WriteLine()
+
+↓
+
+Request Started
+
+↓
+
+_next()
+
+↓
+
+Endpoint
+
+↓
+
+Console.WriteLine()
+
+↓
+
+Inside Endpoint
+
+↓
+
+Return "Hello"
+
+↓
+
+Back to Logging Middleware
+
+↓
+
+Console.WriteLine()
+
+↓
+
+Request Finished
+
+↓
+
+Browser
+
+Output
+
+Request Started
+
+Inside Endpoint
+
+Request Finished
+What does app.UseMiddleware do?
+
+This line
+
+app.UseMiddleware<LoggingMiddleware>();
+
+basically tells ASP.NET
+
+Add this middleware into the request pipeline.
+
+Think of ASP.NET building a chain.
+
+Initially
+
+Browser
+
+↓
+
+Endpoint
+
+After adding Logging
+
+Browser
+
+↓
+
+Logging
+
+↓
+
+Endpoint
+
+If you add Authentication
+
+app.UseAuthentication();
+
+Pipeline becomes
+
+Browser
+
+↓
+
+Logging
+
+↓
+
+Authentication
+
+↓
+
+Endpoint
+
+If you add Authorization
+
+Browser
+
+↓
+
+Logging
+
+↓
+
+Authentication
+
+↓
+
+Authorization
+
+↓
+
+Endpoint
+
+ASP.NET automatically wires up each middleware's _next delegate so every middleware knows who comes after it.
+
+Why is _next a delegate and not a middleware object?
+
+This is a subtle but elegant design choice.
+
+If _next were a concrete middleware class, every middleware would need to know the exact type of the next middleware:
+
+Logging -> Authentication -> Authorization
+
+That would tightly couple them.
+
+Instead, _next is just "something I can call to continue processing."
+
+await _next(context);
+
+Logging doesn't know who is next. It doesn't care whether it's Authentication, Authorization, Routing, or some custom middleware. It simply says:
+
+"I'm done. Whoever is next, please continue."
+
+This makes middleware reusable and allows ASP.NET Core to build the pipeline dynamically.
+
+The one mental model I'd remember
+
+Imagine each middleware is a relay race runner.
+
+Runner 1 (Logging)
+        |
+        | passes baton (_next)
+        v
+Runner 2 (Authentication)
+        |
+        | passes baton (_next)
+        v
+Runner 3 (Authorization)
+        |
+        | passes baton (_next)
+        v
+Finish Line (Endpoint)
+The baton is the HttpContext (the request/response information).
+The instruction to pass it on is await _next(context).
+After the finish line is reached, the runners metaphorically "run back" in reverse order, allowing each middleware to do post-processing 
+(like logging the response, adding headers, or measuring elapsed time).
+
+Once you think of middleware as a chain of runners passing the same baton forward and then observing the result on the way back, 
+the design of ASP.NET Core's middleware pipeline becomes much more intuitive.

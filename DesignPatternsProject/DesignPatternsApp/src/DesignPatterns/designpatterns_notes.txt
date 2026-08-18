@@ -394,7 +394,7 @@ Generating different report types (PDF, Excel)
 Data import process for different file formats (CSV, XML)
 Game characters following the same turn sequence but performing different actions
 ---------------------------------------------------------------
-7. Observer pattern
+7. Observer pattern (Example: Asynchronous event driven communication among microservices using a message queue)
 
 The Observer Pattern is used when one object needs to notify multiple other objects whenever something changes.
 
@@ -441,7 +441,7 @@ Key Idea (One-line Memory Aid)
 "Many objects communicate through one central coordinator instead of talking directly to each other."
 
 ------------------------------------------------------------------------------------------
-9. Chain of Responsibility pattern
+9. Chain of Responsibility pattern (Example: ASP.NET Core Middleware (each middleware handles or passes the request to the next))
 
 The Chain of Responsibility Pattern is used when multiple objects can handle a request, 
 and the request is passed along a chain until one of them handles it.
@@ -472,7 +472,6 @@ Key Idea (One-line Memory Aid)
 Real-world Examples
 Customer support escalation
 Expense approval (Manager → Director → CEO)
-ASP.NET Core Middleware (each middleware handles or passes the request to the next)
 Exception handling chains
 
 ------------------------------------------------------------------------------------------------------------
@@ -1196,7 +1195,7 @@ Client → Factory Method → Creates Required Object
 
 Key idea:
 
-Factory Method = Delegate object creation to a method instead of creating objects directly with new.
+Factory Method = Delegate object creation to a method (think like a factory) instead of creating objects directly with new.
 
 
 4. ABSTRACT FACTORY PATTERN
