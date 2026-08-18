@@ -60,7 +60,8 @@ Host
 ↑
 Customer
 
-Each person can still add something before it reaches the customer—for example, the waiter can garnish the plate or the host can thank the customer. That's exactly how the response flows back through the middleware pipeline.
+Each person can still add something before it reaches the customer—for example, the waiter can garnish the plate or the host can thank the customer. 
+That's exactly how the response flows back through the middleware pipeline.
 
 
 2. Clear Conceptual Understanding
@@ -258,7 +259,7 @@ Browser
 
 Invoke(context)
 
-Every request gets its own HttpContext.
+Every request gets its own HttpContext. (REMEMEBER: thats the reason for the 'scoped' lifetime of the request)
 
 What is HttpContext?
 
@@ -622,6 +623,8 @@ Runner 3 (Authorization)
 Finish Line (Endpoint)
 The baton is the HttpContext (the request/response information).
 The instruction to pass it on is await _next(context).
-After the finish line is reached, the runners metaphorically "run back" in reverse order, allowing each middleware to do post-processing (like logging the response, adding headers, or measuring elapsed time).
+After the finish line is reached, the runners metaphorically "run back" in reverse order, allowing each middleware to do post-processing 
+(like logging the response, adding headers, or measuring elapsed time).
 
-Once you think of middleware as a chain of runners passing the same baton forward and then observing the result on the way back, the design of ASP.NET Core's middleware pipeline becomes much more intuitive.
+Once you think of middleware as a chain of runners passing the same baton forward and then observing the result on the way back, 
+the design of ASP.NET Core's middleware pipeline becomes much more intuitive.

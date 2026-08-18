@@ -166,7 +166,8 @@ Now each class implements only the interfaces it needs.
 
 Interview One-Liner
 
-The Interface Segregation Principle states that clients should not be forced to depend on or implement methods they do not use. It encourages creating small, focused interfaces rather than one large interface.
+The Interface Segregation Principle states that clients should not be forced to depend on or implement methods they do not use. 
+It encourages creating small, focused interfaces rather than one large interface.
 
 ---------------------------------------------------------------
 
