@@ -4,7 +4,14 @@
     {
         Program p = new Program();
 
-        
+        var pipe = new p.PipeBuilder(p.First)
+                       .p.AddPipe(typeof(p.Try))
+                       .p.AddPipe(typeof(p.Wrap))
+                       .p.AddPipe(typeof(p.Wrap))
+                       .Build();
+
+        pipe("Abhi making request");
+       // pipe("database request made");
     }
 
     public void First(string message)
@@ -35,6 +42,28 @@
                 throw new Exception();
             }
             _pipeTypes.Add(pipeType);
+            return this;
+        }
+        
+        private Action<string> CreatePipe(int index)
+        {
+            if(index < _pipeTypes.Count - 1)
+            {
+                var childPipeHandle = CreatePipe(index + 1);
+                var pipe = (Pipe)Activator.CreateInstance(_pipeTypes[index], childPipeHandle);
+                return pipe.Handle;
+            }    
+            else
+            {
+                var finalPipe = Activator.CreateInstance(_pipeTypes[index], _mainAction);
+                return finalPipe.Handle;
+            }
+        }
+
+        public Action<string> Build()
+        {
+            var pipe = Activator.CreateInstance(_pipeTypes[0], _mainAction);
+            return null;
         }
     }
 
@@ -67,8 +96,8 @@
         {
             try
             {
-                Console.WriteLine("trying: "+message);
-                _action(message);     // again protected member from parent class being accessed
+                Console.WriteLine("trying: "+msg);
+                _action(msg);     // again protected member from parent class being accessed
             }
             catch(Exception)
             {
